@@ -9,7 +9,7 @@ In the data acquisition process, we make the robot climb along the 25cm and 35cm
 
 \begin{figure}[t]
 	\centering
-	\includegraphics[height=6cm,width=\linewidth]{fig/experiment/170912/cluster}
+	\includegraphics[width=0.6\linewidth]{fig/experiment/170912/cluster}
 	\caption{The result of clustering about member size of each class}
 	\figlabel{fig:clustersize}
 \end{figure}
@@ -24,7 +24,7 @@ The results are shown in \figref{fig:ccurve1}. In 0s to 15s, the robot changes i
 
 Eventually all control parameters as well as velocity are stable. It shows that under this control strategy, the robot can adjust its parameters autonomously to adapt to the environment
 
-\begin{figure*}[!t]
+\begin{figure}[!t]
 	\centering
 	\subfigure[t= 0.0s]{
 		\includegraphics[height=2in,width=.12\textwidth]{fig/experiment/170912/bs0}
@@ -35,6 +35,8 @@ Eventually all control parameters as well as velocity are stable. It shows that 
 	\subfigure[t=39.8s]{
 		\includegraphics[height=2in,width=.12\textwidth]{fig/experiment/170912/bs2}
 	}
+	
+	
 	\subfigure[t=50.5s]{
 		\includegraphics[height=2in,width=.12\textwidth]{fig/experiment/170912/bs3}
 	}
@@ -44,27 +46,29 @@ Eventually all control parameters as well as velocity are stable. It shows that 
 	\subfigure[t=64.5s]{
 		\includegraphics[height=2in,width=.12\textwidth]{fig/experiment/170912/bs5}
 	}
+	
 	\subfigure[Amplifier versus Time]{
-		\includegraphics[width=.23\textwidth]{fig/experiment/170912/bsamplifier}
+		\includegraphics[width=.2\textwidth]{fig/experiment/170912/bsamplifier}
 		\figlabel{fig:bsa}
 	}
 	\subfigure[Phase versus Time]{
-		\includegraphics[width=.23\textwidth]{fig/experiment/170912/bsphase}
+		\includegraphics[width=.2\textwidth]{fig/experiment/170912/bsphase}
 		\figlabel{fig:bsp}
 	}
+	
 	\subfigure[Angular rate versus Time]{
-		\includegraphics[width=.23\textwidth]{fig/experiment/170912/bsangrate}
+		\includegraphics[width=.2\textwidth]{fig/experiment/170912/bsangrate}
 		\figlabel{fig:bsw}
 	}
 	\subfigure[velocity versus Time]{
-		\includegraphics[width=.23\textwidth]{fig/experiment/170912/bsv}
+		\includegraphics[width=.2\textwidth]{fig/experiment/170912/bsv}
 		\figlabel{fig:bsv}
 	}
 	\caption{The movement process and the curves of parameters changing in the motion along the 35cm to 25cm pipe}
 	\figlabel{fig:ccurve1}
-\end{figure*}
+\end{figure}
 
-\begin{figure*}[!t]
+\begin{figure}[!t]
 	\centering
 	\subfigure[t= 0.0s]{
 		\includegraphics[height=2in,width=.12\textwidth]{fig/experiment/170912/sb0}
@@ -75,6 +79,7 @@ Eventually all control parameters as well as velocity are stable. It shows that 
 	\subfigure[t=40.5s]{
 		\includegraphics[height=2in,width=.12\textwidth]{fig/experiment/170912/sb2}
 	}
+	
 	\subfigure[t=55.0s]{
 		\includegraphics[height=2in,width=.12\textwidth]{fig/experiment/170912/sb3}
 	}
@@ -84,29 +89,29 @@ Eventually all control parameters as well as velocity are stable. It shows that 
 	\subfigure[t=66.0s]{
 		\includegraphics[height=2in,width=.12\textwidth]{fig/experiment/170912/sb5}
 	}
-	
 	\subfigure[Amplifier versus Time]{
-		\includegraphics[width=.23\textwidth]{fig/experiment/170912/sbamplifier1}
+		\includegraphics[width=.2\textwidth]{fig/experiment/170912/sbamplifier1}
 		\figlabel{fig:sba}
 	}
 	\subfigure[Phase versus Time]{
-		\includegraphics[width=.23\textwidth]{fig/experiment/170912/sbphase}
+		\includegraphics[width=.2\textwidth]{fig/experiment/170912/sbphase}
 		\figlabel{fig:sbp}
 	}
+	
 	\subfigure[Angular rate versus Time]{
-		\includegraphics[width=.23\textwidth]{fig/experiment/170912/sbangrate}
+		\includegraphics[width=.2\textwidth]{fig/experiment/170912/sbangrate}
 		\figlabel{fig:sbw}
 	}
 	\subfigure[velocity versus Time]{
-		\includegraphics[width=.23\textwidth]{fig/experiment/170912/sbv}
+		\includegraphics[width=.2\textwidth]{fig/experiment/170912/sbv}
 		\figlabel{fig:sbv}
 	}
 	\caption{The movement process and the curves of parameters changing in the motion along the 25cm to 35cm pipe}
 	\figlabel{fig:ccurve2}
-\end{figure*}
+\end{figure}
 
 \subsubsection{For 25cm to 35cm pipe climbing simulation}
-It is similar with the previous simulation, but the movement is different in the interface where the diameter changes. The results are shown in \figref{fig:ccurve2}. Firstly, the snake-like robot spend a lot of time to coil the 25cm pipeline. And then the robot adjust itself and finally its parameters reach stable. About 52s, the robot encounters the interface where the diameter changes. At this time the robot autonomously reduce amplitude slightly (\figref{fig:sba}) and then significantly increase  phase (\figref{fig:sbp}). In this way, the control strategy make the robot move itself from the 25cm part up to the 35cm part. When on the 35cm 6part, the robot will automatically increase the amplitude and decrease the phase shift until the steady state.
+It is similar with the previous simulation, but the movement is different in the interface where the diameter changes. The results are shown in \figref{fig:ccurve2}. Firstly, the snake-like robot spend a lot of time to coil the 25cm pipeline. And then the robot adjust itself and finally its parameters reach stable. About 52s, the robot encounters the interface where the diameter changes. At this time the robot autonomously reduce amplitude slightly (\figref{fig:sba}) and then significantly increase  phase (\figref{fig:sbp}). In this way, the control strategy make the robot move itself from the 25cm part up to the 35cm part. When on the 35cm part, the robot will automatically increase the amplitude and decrease the phase shift until the steady state.
 
 Both simulations show that our method is effective to adapt the robot to climb along the variable diameter pipe.
 
@@ -114,49 +119,51 @@ Both simulations show that our method is effective to adapt the robot to climb a
 
 As the unknown environment in the real world is complex and volatile, there may be a movement environment different to the training environment. Our training environment is vertical pipes with 25cm or 35cm diameter. To ensure that this control strategy can be applied in many situation, we conduct several  independent simulations on 20cm or 25cm or 30cm or 35cm or 40cm straight pipe. The result of these simulations are shown in \figref{fig:scurve}. The simulations show that the robot can use our control strategy to catch the unknown pipe and adjust itself to a better climbing state. Next is the detailed analysis.
 
-By observing the parameter change curve we can find that the smaller diameter of the pipe is, the more times the parameter need to spend in adjusting. All of parameters are finally reach a stable value and satisfied with the requirement of movement. For the 40cm diameter pipe, the robot is not enough to form a single ring to wrap the pipe (\figref{fig:D40}), in this case the influence produced by phase $\varepsilon$ is very weak (\figref{fig:sphase}). For the 20cm diameter pipe, it is difficult to climb along the pipe only by increasing the amplitude $A$, because when the amplitude is too large, will cause the snake-like robot curling up to a higher degree, which is not conducive to climb. Therefore, to make the robot climb small diameter pipe, we need to constantly adjust the phase $\varepsilon$ to meet the corresponding amplitude $A$ requirements. By observing the variation curve of the control parameters of the small diameter pipe, we can found that the phase $\varepsilon$ and the amplitude $A$ of the robot are coordinated in the process of self-regulation ( \figref{fig:samplifier})(\figref{fig:sphase})..
+By observing the parameter change curve we can find that the smaller diameter of the pipe is, the more times the parameter need to spend in adjusting. All of parameters are finally reach a stable value and satisfied with the requirement of movement. For the 40cm diameter pipe, the robot is not enough to form a single ring to wrap the pipe (\figref{fig:D40}), in this case the influence produced by phase $\varepsilon$ is very weak (\figref{fig:sphase}). For the 20cm diameter pipe, it is difficult to climb along the pipe only by increasing the amplitude $A$, because when the amplitude is too large, will cause the snake-like robot curling up to a higher degree, which is not conducive to climb. Therefore, to make the robot climb small diameter pipe, we need to constantly adjust the phase $\varepsilon$ to meet the corresponding amplitude $A$ requirements. By observing the variation curve of the control parameters of the small diameter pipe, we can found that the phase $\varepsilon$ and the amplitude $A$ of the robot are coordinated in the process of self-regulation ( \figref{fig:samplifier})(\figref{fig:sphase}).
 
-\begin{figure*}[!t]
+\begin{figure}[!t]
 	\centering
 	\subfigure[d=20cm]{
-		\includegraphics[height=2in,width=.18\textwidth]{fig/experiment/170912/D20}
+		\includegraphics[height=2in,width=.12\textwidth]{fig/experiment/170912/D20}
 		\figlabel{fig:D20}
 	}
 	\subfigure[d=25cm]{
-		\includegraphics[height=2in,width=.18\textwidth]{fig/experiment/170912/D25}
+		\includegraphics[height=2in,width=.12\textwidth]{fig/experiment/170912/D25}
 		\figlabel{fig:D25}	
 	}
+	
 	\subfigure[d=30cm]{
-		\includegraphics[height=2in,width=.18\textwidth]{fig/experiment/170912/D30}
+		\includegraphics[height=2in,width=.12\textwidth]{fig/experiment/170912/D30}
 		\figlabel{fig:D30}
 	}
 	\subfigure[d=35cm]{
-		\includegraphics[height=2in,width=.18\textwidth]{fig/experiment/170912/D35}
+		\includegraphics[height=2in,width=.12\textwidth]{fig/experiment/170912/D35}
 		\figlabel{fig:D35}
 	}
 	\subfigure[d=40cm]{
-		\includegraphics[height=2in,width=.18\textwidth]{fig/experiment/170912/D40}
+		\includegraphics[height=2in,width=.12\textwidth]{fig/experiment/170912/D40}
 		\figlabel{fig:D40}
 	}
+	
 	\subfigure[Amplifier versus Time]{
-		\includegraphics[width=.23\textwidth]{fig/experiment/170912/samplifier}
+		\includegraphics[width=.2\textwidth]{fig/experiment/170912/samplifier}
 		\figlabel{fig:samplifier}
 	}
 	\subfigure[Phase versus Time]{
-		\includegraphics[width=.23\textwidth]{fig/experiment/170912/sphase}
+		\includegraphics[width=.2\textwidth]{fig/experiment/170912/sphase}
 		\figlabel{fig:sphase}
 	}
 	\subfigure[Angular rate versus Time]{
-		\includegraphics[width=.23\textwidth]{fig/experiment/170912/sarate}
+		\includegraphics[width=.2\textwidth]{fig/experiment/170912/sarate}
 		\figlabel{fig:sarate}
 	}
 	\subfigure[velocity versus Time]{
-		\includegraphics[width=.23\textwidth]{fig/experiment/170912/svelocity}
+		\includegraphics[width=.2\textwidth]{fig/experiment/170912/svel}
 		\figlabel{fig:svelocity}
 	}
 	\caption{The comparison curve about parameters changing versus time in different diameter pipe climbing}
 	\figlabel{fig:scurve}
-\end{figure*}
+\end{figure}
 
 It is worth noting that, for all test environments, the movement velocity of the robot  ultimately fluctuate within a constant range  (\figref{fig:svelocity}). The diameter of the pipe only affects the velocity convergence rate. And also the control parameters of the robot will eventually become stable (\figlabel{fig:scurve}). This shows that the influence of the external environment to this control strategy is very weak. What's more, for the pipes that can be climbed, it will find the optimal control parameter.
 

@@ -98,7 +98,7 @@ $S^{(X)}$ is the cluster center set. $X^{(C)}$ is the closet vector to the real-
 After categorization of real-time data, we select those preponderant vectors whose Z-axis velocity are bigger than current(Eq.\ref{preponderant}).
 %find out preponderant
 \begin{eqnarray}\label{preponderant}
-S^{(V)}=\{P^{(i)},V_{z}^{(i)}\geq V_{z}^{P_{t}} \; and \; P^{(i)}\in S^{(C)}\}
+S^{(V)}=\{P^{(i)}|V_{z}^{(i)}\geq V_{z}^{P_{t}} \; and \; P^{(i)}\in S^{(C)}\}
 \end{eqnarray}
 
 $S^{(C)}$ is all the vectors which belong to the cluster with the cluster center $X^{(C)}$. $V_{z}^{(i)}$ is the vertical velocity component of the vector $P^{(i)}$ and $V_{z}^{(P_{t})}$ is the vertical velocity component of the real-time data vector. $S^{(V)}$ is the set of all the preponderant vectors for regression.
@@ -130,7 +130,7 @@ We adopt entropy variance as the reference to select the parameter which should 
 	\item Step 2: There are a variety of possible values for each gait parameter. Thus, in order to record all the possible values, we make a set $S_{ij}^{(P)}$ which is the data set of $j_{th}$ possible value of the gait parameter $i$. And value of $i$ is from 0 to 2 corresponding to amplitude, phase and angular rate respectively. We calculate the entropy about the vertical velocity of the $j_{th}$ possible value of the gait parameter $i$ by Eq.\ref{entropy} as well as the entropy variance of the gait parameter $i$ by Eq.\ref{var_entropy}. In Eq.\ref{entropy}, $p(v_{z})$ is the appearance rate of each member in the velocity discrete sequence as Eq.\ref{newMember}. In Eq.\ref{var_entropy}, $E_{ij}^{(H)}$ is the mean of velocity of  the $j_{th}$ possible value of the gait parameter $i$ and $N_{i}$ is the number of possible values of the gait parameter $i$.
 	%entropy
 	\begin{eqnarray}\label{entropy}
-	H(S_{ij}^{(P)})=\sum _{v_{z}\in V_{new}^{(Z)}}p(v_{z})log_{2}p(v_{z})
+	H(S_{ij}^{(P)})=-\sum _{v_{z}\in V_{new}^{(Z)}}p(v_{z})log_{2}p(v_{z})
 	\end{eqnarray}
 	
 	%entropy variance
