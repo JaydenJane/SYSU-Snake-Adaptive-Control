@@ -1,0 +1,6 @@
+\section{Conclusion and future work}
+This paper presents a framework for robot-based adaptive control based on reinforcement learning. We take Z-axis velocity as reinforcement signal and adopt regression to correct the robots' action. We simplify the runtime learning through clustering and transform the multiple regression into unit regression. Experiments show that the scheme is effective.
+
+It is noteworthy that this method can be used not only in the case like climbing pipe in this experiment, but also in other robotic applications. We believe that the algorithm can adapt to the other corresponding scene, such as the unmanned vehicle's variable motion, the rugged ground motion of the serpentine robot and the simulated PID control as long as enough training data and clear moving purpose are given.
+
+In the future work, we will improve the algorithm in the following ways. The hierarchical clustering\cite{HierarchicalKmeans}\cite{HierarchicalClusterBased} will be applied to the model to achieve uniform clustering to ensure that the data volume of each regression is consistent. Existing regression models will also be improved. What's more, we will carry out testing in much more complex climbing scene such as simulating trees in nature and bifurcate pipelines. We will develop much more complex rules for learning and running in much more complex environments.
