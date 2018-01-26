@@ -5,12 +5,12 @@ The simulation process can be divided into two categories: training and motion s
 
 \subsection{Training process}
 
-In the data acquisition process, we make the robot climb along the 25cm and 35cm pipes for thousands of times respectively under different parameters. The interval of amplitude $A$, phase $\varepsilon$ and angular rate $\omega$ are $[40, \, 80]$, $[0, \, 5]$ and $[1.5, \, 3]$ respectively. What's more, the step of $A$ is 5, the step of $\varepsilon$ is 1 and the step of $\omega$ is 0.5. The state of the robot will change during the course of the movement. We make the robot climb with different combination of parameters and collect the data. Then we can eventually collect more than 20 thousand volumes of training data. In the preprocessing process, we cluster the training data. We set the number of clusters as 25 or so to ensure the uniform distribution of clustering. The number of data for each class is $1000 \pm 500 $ (\figref{fig:clustersize}).
+In the data acquisition process, we make the robot climb along the 25cm and 35cm pipes for thousands of times respectively under different parameters. The interval of amplitude $A$, phase $\varepsilon$ and angular rate $\omega$ are $[40, \, 80]$, $[0, \, 5]$ and $[1.5, \, 3]$ respectively. What's more, the step of $A$ is 5, the step of $\varepsilon$ is 1 and the step of $\omega$ is 0.5. The state of the robot will change during the course of the movement. We make the robot climb with different combination of parameters and collect the data. Then we can eventually collect more than 20 thousand volumes of training data. In the preprocessing process, we cluster the training data. We set the number of clusters as 25. The number of data for most of classes is $1000 \pm 500 $ (\figref{fig:clustersize}).
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=0.6\linewidth]{fig/experiment/170912/cluster}
-	\caption{The result of clustering about member size of each class}
+	\caption{The result of clustering}
 	\figlabel{fig:clustersize}
 \end{figure}
 
