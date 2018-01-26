@@ -3,7 +3,7 @@
 The intelligent control strategy proposed in this paper is shown in \figref{fig:stepMap}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.7\linewidth]{fig/mainwork/stepMap}
+	\includegraphics[width=.8\linewidth]{fig/mainwork/stepMap}
 	\caption{The overall experimental flow chart}
 	\figlabel{fig:stepMap}
 \end{figure}
@@ -46,7 +46,7 @@ In this research, collected data in preprocessing is a large-scale data set. As 
 	\left\{
 	\begin{array}{lr}
 	F_{c}\left ( P^{\left (  i\right )} \right ) = \sum_{j=1}^{k-1}\left \| X^{\left ( j-1 \right )}-P^{\left (  i\right )} \right \|_{2}\\
-	X^{(k)} = $arg$\max \limits_{i}{(F_{C}(P^{(i)}))}
+	k = $arg$\max \limits_{i}{(F_{C}(P^{(i)}))}
 	\end{array}
 	\right.
 	\end{eqnarray}
@@ -88,7 +88,7 @@ With $Kmeans++$, the collected data can be divided into several clusters. In thi
 
 Every time we get the real-time data, we relegate it to the certain cluster by Eq.\ref{cluster}.
 \begin{eqnarray}\label{cluster}
-X^{(C)}=arg\min \limits_{k}{(||X^{(k)}-P_{t}||_{2})} \, ,&X^{(C)}\in S^{(X)}
+C=arg\min \limits_{k}{(||X^{(k)}-P_{t}||_{2})} \, ,&X^{(C)}\in S^{(X)}
 \end{eqnarray}
 
 $S^{(X)}$ is the cluster center set. $X^{(C)}$ is the closet vector to the real-time vector $P_t$. And $X^{(k)}$ is the $i_{th}$ cluster center of the cluster center set $S^{(X)}$ . With $Euclidian \; Distance \; Formula$, we make a prediction on the similarity between two vectors.
@@ -98,7 +98,7 @@ $S^{(X)}$ is the cluster center set. $X^{(C)}$ is the closet vector to the real-
 After categorization of real-time data, we select those preponderant vectors whose Z-axis velocity are bigger than current(Eq.\ref{preponderant}).
 %find out preponderant
 \begin{eqnarray}\label{preponderant}
-S^{(V)}=\{P^{(i)}|V_{z}^{(i)}\geq V_{z}^{P_{t}} \; and \; P^{(i)}\in S^{(C)}\}
+S^{(V)}=\{P^{(i)}|V_{z}^{(i)}\geq V_{z}^{P_{t}} \; , \; P^{(i)}\in S^{(C)}\}
 \end{eqnarray}
 
 $S^{(C)}$ is all the vectors which belong to the cluster with the cluster center $X^{(C)}$. $V_{z}^{(i)}$ is the vertical velocity component of the vector $P^{(i)}$ and $V_{z}^{(P_{t})}$ is the vertical velocity component of the real-time data vector. $S^{(V)}$ is the set of all the preponderant vectors for regression.
