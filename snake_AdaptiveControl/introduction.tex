@@ -8,7 +8,8 @@ and scientific exploration\cite{Kuwada2007Snake}. In the past decades,
 with the advent of orthogonal and universal joint structure\cite{1014757}\cite{Date2005Control}\cite{GaitBasedCompliant}, 
 snake-like robots acquired the ability of three-dimensional space movement, 
 which strengthens their mobility in varied topography. 
-However, the movement of most snake-like robots in unknown environments is 
+
+Although the snake-like robots have high mobility in many environments, the movement of most snake-like robots in unknown environments is 
 directly controlled by human, reducing the efficiency and limiting the 
 implementation of snake-like robots. Therefore, it is an important and challenging 
 task to give them the ability to move in complex environment
@@ -29,7 +30,21 @@ gait. The whole process of our control strategy can be divided into two parts:
 	\item data acquisition and preprocessing,
 	\item real-time data feedback and multi-parameter regression control.
 \end{enumerate}
-In the first part, we collect data that reflecting the dynamic states of a snake-like
+\begin{figure}[!t]
+	\centering
+	\subfigure[Reality robot]{
+		\includegraphics[width=1.5in,height=0.75in]{fig/relative/realSnake}
+		\figlabel{fig:snake_like_robot_a}
+	}
+	\subfigure[Simulation robot]{
+		\includegraphics[width=1.5in,height=0.75in]{fig/relative/simulateSnake}
+		\figlabel{fig:snake_like_robot_b}
+	}
+	\caption{The Snake-like robot}
+	\figlabel{fig:snake_like_robot}
+\end{figure}
+
+The detail works are as follows. In the first part, we collect data that reflecting the dynamic states of a snake-like
 robot in varies environments and then form a training set. The clustering
 algorithm\cite{Cluseter_ICT}\cite{KmeansAndDeepLearning}
 is adopted in this part to reduce the time overhead of feed-back control.
@@ -45,9 +60,10 @@ unit regression and combining the weighted least squares algorithm\cite{gradient
 we finally get a fitted regression function and obtain the optimal value of the most sensitive parameter.
 To evaluate the effectiveness of the proposed framework, we also apply it to the our 
 existing snake-like robot platform, which is shown in~\figref{fig:snake_like_robot_a}
-and~\figref{fig:snake_like_robot_b}. 
-Under our framework, the robot climbs pipes having different diameters and the
-performance of climbing is reported. In summary, the contributions of this paper are:
+and~\figref{fig:snake_like_robot_b}. Under our framework, the robot climbs pipes having different diameters and the
+performance of climbing is reported. 
+
+In summary, the contributions of this paper are:
 \begin{itemize}
 	\item A new framework for robot adaptive control is proposed.
  	      This framework greatly reduces the amount of  effort of the regression calculation 
@@ -66,23 +82,13 @@ performance of climbing is reported. In summary, the contributions of this paper
 %thus forming a three-dimensional space movement. a set of sensors such as accelerometer and gyro
 %is embedded in each joint to realize the feedback control.
 
-
-\begin{figure}[!t]
-	\centering
-	\subfigure[Reality robot]{
-		\includegraphics[width=1.5in,height=0.75in]{fig/relative/realSnake}
-		\figlabel{fig:snake_like_robot_a}
-	}
-	\subfigure[Simulation robot]{
-		\includegraphics[width=1.5in,height=0.75in]{fig/relative/simulateSnake}
-		\figlabel{fig:snake_like_robot_b}
-	}
-	\caption{The Snake-like robot}
-	\figlabel{fig:snake_like_robot}
-\end{figure}
-
-
 The rest of this paper is organised as follows. 
+\begin{enumerate}
+	\item Early preparations are demonstrated in the RELATIVE WORK.
+	\item Algorithm is explained in ADAPTIVE CONTROL STRATEGY in detailed.
+	\item Simulation works using our algorithm are illustrated in SIMULATION.
+	\item Conclusion and our future prospects about the proposed strategy are introduced in CONCLUSION.
+\end{enumerate}
 
 
 %The simulation environment is the pipe climbing, which can be used in cable detection of cable-stayed bridge. In the first part, we collect data in pipes with different diameter as training set. To reduce time of calculation in feed-back control, we adopt clustering algorithm\cite{Cluseter_ICT}\cite{KmeansAndDeepLearning}. In the second part, we apply regression and feed-back control based on previous training data on the motion of robots. We utilize the entropy variance\cite{WaveformEntropyVariance}\cite{EntropyandVarianceasRiskMeasure}\cite{UsingEntropyAndVariance} to measure the effect of the control parameters on the motion and select the most sensitive parameter which has the greatest effect on motion. By transforming the multiple regression into the unit regression and combining the weighted least squares algorithm\cite{gradientMethod}\cite{MSEestimates}, we finally get a fitted regression function and modify the most sensitive parameter.
