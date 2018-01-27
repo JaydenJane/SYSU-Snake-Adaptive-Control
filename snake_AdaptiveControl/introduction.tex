@@ -9,23 +9,16 @@ with the advent of orthogonal and universal joint structure\cite{1014757}\cite{D
 snake-like robots acquired the ability of three-dimensional space movement, 
 which strengthens their mobility in varied topography. 
 
-Although the snake-like robots have high mobility in many environments, the movement of most snake-like robots in unknown environments is 
-directly controlled by human, reducing the efficiency and limiting the 
-implementation of snake-like robots. Therefore, it is an important and challenging 
-task to give them the ability to move in complex environment
-without real-time human intervention, that is, the autonomous mobility.
+Although the snake-like robots have high mobility in many environments, the control of snake-like robots is complicated. A variety of motions can be constructed to get the same motion effect in the same environment because of the features of snake-like robots like multiple joints and degree of freedom. Moreover, the movements of snake-like robots are difficult to be predefined or inferred in the unknown environment.
 
-%It's necessary for the robots to have autonomous mobility if we want them to move in complex or unknown environment such as
-%climbing the outdoor pipeline for maintenance. Actually, by setting the accurate parameters of motion, snake-like robots can
-%travel along the pipes with different diameters by rolling gait. However, the motions of snake-like robots are not efficient
-%under the real-time control of human. Our goal is to develop a new autonomous control strategy for the motion of snake-like
-%robots. We propose a new control strategy based on learning experience of robots . The robots' adaptive motion can improve
-%adaptability in different movement environments.
+Nowadays, based on a widely used motion model\cite{HiroseSine} of snake-like robots, we can pre-define the parameters to make robots move correctly in the known environment. However, this method is not feasible for the unknown environment. In unknown environments, tunning parameters artifically is inefficient because tunning the parameters inaccurately will break the motion of snake-like robots and it is difficult to tune the parameter accurately during robots' motion. In addition, controlling the robots is a professional work. Therefore, autonomous mobility of robots is an expectation in robots' motion.
+%Although the snake-like robots have high mobility in many environments, the movement of most snake-like robots in unknown environments is directly controlled by human, reducing the efficiency and limiting the implementation of snake-like robots. Therefore, it is an important and challenging task to give them the ability to move in complex environment without real-time human intervention, that is, the autonomous mobility.
 
-In this paper, we aim to address this problem by proposing a novel experience-based control strategy,
+Autonomous mobility is an important and challenging task in robots' adaptability to environments. It is quite tough for programmer to take full account of all possible scenarios and have a good understanding of the interaction between the robot and the environment to construct a behavior-based autonomous model for robots, which increases the programmer's programming intensity and makes a weak effect on the movement in the unknown and mutational environment.
+
+In this paper, we propose a novel experience-based control strategy,
 which autonomously determines the optimal control parameters of a snake-like robot in
-current environment. The control parameter specifies how the robot moves under a given
-gait. The whole process of our control strategy can be divided into two parts:
+current environment by entropy variance\cite{WaveformEntropyVariance}\cite{EntropyandVarianceasRiskMeasure}\cite{UsingEntropyAndVariance}. By tunning the optimal control parameter with regression value through the weighted least squares algorithm\cite{gradientMethod}\cite{MSEestimates}, we achieve to make the robot gradually adapt itselt to the environment. The whole process of our control strategy can be divided into two parts:
 \begin{enumerate}
 	\item data acquisition and preprocessing,
 	\item real-time data feedback and multi-parameter regression control.
@@ -43,27 +36,11 @@ gait. The whole process of our control strategy can be divided into two parts:
 	\caption{The Snake-like robot}
 	\figlabel{fig:snake_like_robot}
 \end{figure}
-
-The detail works are as follows. In the first part, we collect data that reflecting the dynamic states of a snake-like
-robot in varies environments and then form a training set. The clustering
-algorithm\cite{Cluseter_ICT}\cite{KmeansAndDeepLearning}
-is adopted in this part to reduce the time overhead of feed-back control.
-In the second part, we apply regression and feed-back control based on previous
-training data of the motion of robots. The multi-parameter regression
-is also transformed into an unit regression problem for higher efficiency.
-We adopt the entropy
-variance\cite{WaveformEntropyVariance}\cite{EntropyandVarianceasRiskMeasure}\cite{UsingEntropyAndVariance}
-as the criterion for accessing the effect of the control parameters on the motion.
-Then the most sensitive parameter which has the greatest effect on motion is selected
-to perform the unit regression. By transforming the multiple regression into the 
-unit regression and combining the weighted least squares algorithm\cite{gradientMethod}\cite{MSEestimates}, 
-we finally get a fitted regression function and obtain the optimal value of the most sensitive parameter.
+%In the first part, we collect data that reflecting the dynamic states of a snake-like robot in varies environments and then form a training set. The clustering algorithm\cite{Cluseter_ICT}\cite{KmeansAndDeepLearning} is adopted in this part to reduce the time overhead of feed-back control. In the second part, we apply regression and feed-back control based on previous training data of the motion of robots. The multi-parameter regression is also transformed into an unit regression problem for higher efficiency. We adopt the entropy variance\cite{WaveformEntropyVariance}\cite{EntropyandVarianceasRiskMeasure}\cite{UsingEntropyAndVariance} as the criterion for accessing the effect of the control parameters on the motion. Then the most sensitive parameter which has the greatest effect on motion is selected to perform the unit regression. By transforming the multiple regression into the  unit regression and combining the weighted least squares algorithm\cite{gradientMethod}\cite{MSEestimates},  we finally get a fitted regression function and obtain the value of the optimal parameter.
 To evaluate the effectiveness of the proposed framework, we also apply it to the our 
 existing snake-like robot platform, which is shown in~\figref{fig:snake_like_robot_a}
 and~\figref{fig:snake_like_robot_b}. Under our framework, the robot climbs pipes having different diameters and the
-performance of climbing is reported. 
-
-In summary, the contributions of this paper are:
+performance of climbing is reported. In summary, the contributions of this paper are:
 \begin{itemize}
 	\item A new framework for robot adaptive control is proposed.
  	      This framework greatly reduces the amount of  effort of the regression calculation 
@@ -82,18 +59,6 @@ In summary, the contributions of this paper are:
 %thus forming a three-dimensional space movement. a set of sensors such as accelerometer and gyro
 %is embedded in each joint to realize the feedback control.
 
-The rest of this paper is organised as follows. 
-\begin{enumerate}
-	\item Early preparations are demonstrated in the RELATIVE WORK.
-	\item Algorithm is explained in ADAPTIVE CONTROL STRATEGY in detailed.
-	\item Simulation works using our algorithm are illustrated in SIMULATION.
-	\item Conclusion and our future prospects about the proposed strategy are introduced in CONCLUSION.
-\end{enumerate}
-
+The rest of this paper is organised as follows. Early preparations are demonstrated in the Section \uppercase\expandafter{\romannumeral2}. In Section \uppercase\expandafter{\romannumeral3}, proposed strategy is explained in detailed. And then Simulation works are illustrated in Section \uppercase\expandafter{\romannumeral4}. Section \uppercase\expandafter{\romannumeral5} shows the conclusion and our future prospects about the proposed strategy.
 
 %The simulation environment is the pipe climbing, which can be used in cable detection of cable-stayed bridge. In the first part, we collect data in pipes with different diameter as training set. To reduce time of calculation in feed-back control, we adopt clustering algorithm\cite{Cluseter_ICT}\cite{KmeansAndDeepLearning}. In the second part, we apply regression and feed-back control based on previous training data on the motion of robots. We utilize the entropy variance\cite{WaveformEntropyVariance}\cite{EntropyandVarianceasRiskMeasure}\cite{UsingEntropyAndVariance} to measure the effect of the control parameters on the motion and select the most sensitive parameter which has the greatest effect on motion. By transforming the multiple regression into the unit regression and combining the weighted least squares algorithm\cite{gradientMethod}\cite{MSEestimates}, we finally get a fitted regression function and modify the most sensitive parameter.
-
-
-
-
-
