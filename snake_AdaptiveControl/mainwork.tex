@@ -8,7 +8,7 @@ The intelligent control strategy proposed in this paper is shown in \figref{fig:
 	\figlabel{fig:stepMap}
 \end{figure}
 
- In the preprocessing work, we let the robot climb the pipe with different diameters by using different parameters for thousands of times and we collect and store the data listed in the form like \figref{fig:data}.
+ In the preprocessing work, we let the robot move in different environments for a large number of times and we collect and store the data listed in the form like \figref{fig:data}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{fig/mainwork/data}
@@ -20,20 +20,17 @@ In this way, we define "Mean of difference" as $\frac{\sum_{i=1}^{n}(t^{(i)}-ma^
 t^{(1)} & t^{(2)} & \cdots & t^{(n)}
 \end{bmatrix}$ is the desired joint angles and $MA=\begin{bmatrix}
 ma^{(1)} & ma^{(2)} & \cdots & ma^{(n)}
-\end{bmatrix}$ is the measured joint angles. The control vector is shown in Eq.\ref{controlV}
-\begin{eqnarray}\label{controlV}
-V_C=\begin{bmatrix}
+\end{bmatrix}$ is the measured joint angles. The control vector is shown as
+$V_C=\begin{bmatrix}
 A\\ 
 \omega\\
 \varepsilon
-\end{bmatrix}
-\end{eqnarray}
+\end{bmatrix}$
+where $A$ is the amplitude， $\omega$ is the phase, and the $\varepsilon$ is the angular rate. All of them come from Eq.\ref{basicRoll}.
 
-In Eq.\ref{controlV}, $A$ is the amplitude， $\omega$ is the phase, and the $\varepsilon$ is the angular rate. All of them come from Eq.\ref{basicRoll}.
+After collecting movement data of a snake-like robot, we cluster the training data in order to simplify the data processing.
 
-We can get much collected data, which is the training data for snake-like robots. And then we cluster the training data in order to simplify the data processing.
-
-After clustering, it reduces the time of data processing evidently. In robot's running time, we get the real-time data Periodically, we do the following steps. Firstly, we categorize the real-time data based on the clustering result in preprocessing. And then we select the most sensitive gait parameter according to the entropy variance. At last, we use the idea of regression to modify the sensitive gait parameter and keep the other gait parameters unchanged.
+In robot's running time, we get the real-time data periodically and then we do the following steps. Firstly, we categorize the real-time data based on the clustering result in preprocessing. And then we select the most sensitive gait parameter according to the entropy variance. At last, we use the idea of regression to modify the sensitive gait parameter and keep the other gait parameters unchanged.
 
 \subsection{Implementation of Clustering by $Kmeans++$}
 In this research, collected data in preprocessing is a large-scale data set. As $kmeans++$ algorithm has high efficiency and scalability for a large-scale data set, we adopt $kmeans++$ for clustering. We classify training set into $N_{k}$ blocks. The clustering process is divided into the following steps:
@@ -69,7 +66,7 @@ In this research, collected data in preprocessing is a large-scale data set. As 
 	\begin{eqnarray}\label{clu_step5}
 	X^{(k)}=\frac{\sum_{i}\{C^{(i)}=k)\}P^{(i)}}{\sum_{i}\{C^{(i)}=k\}}
 	\end{eqnarray}
-	\item Step 6: iterate Step 4 and 5 until the cluster centers change in a small range.
+	\item Step 6: iterate Step 4 and 5 until the cluster centers change within a predefined tolerance range.
 \end{itemize}
 
 After finishing the clustering, the result is stored in two parts:
@@ -79,7 +76,7 @@ After finishing the clustering, the result is stored in two parts:
 	\item The data vectors of each cluster center.
 \end{itemize}
 
-With $Kmeans++$, the collected data can be divided into several clusters. In this way, we can do it the best to make the number of data in each cluster to be close.
+With $Kmeans++$, the collected data can be divided into several clusters.
 
 \subsection{Parameter selection by entropy variance}
 
@@ -95,7 +92,7 @@ $S^{(X)}$ is the cluster center set. $X^{(C)}$ is the closet vector to the real-
 
 \subsubsection{The selection of the preponderant data}
 
-After categorization of real-time data, we select those preponderant vectors whose Z-axis velocity are bigger than current(Eq.\ref{preponderant}).
+After categorization of real-time data, we select those preponderant vectors whose Z-axis velocity are bigger than current (Eq.\ref{preponderant}).
 %find out preponderant
 \begin{eqnarray}\label{preponderant}
 S^{(V)}=\{P^{(i)}|V_{z}^{(i)}\geq V_{z}^{P_{t}} \; , \; P^{(i)}\in S^{(C)}\}
@@ -215,4 +212,4 @@ In this research, we take weighted regression to get the value of the sensitive 
 	\item Step 4: Iterate the steps above until we acquire the best-fit coefficient. The value of $W$ is stable finally.
 \end{itemize}
 
-When the iteration is stopped, the best-fit coefficient $W_{best}$ will be got. By applying $W_{best}$ to Eq.\ref{result}, we can get the regression value of the sensitive parameter. This value will be used in the robot control. It is worth noting that we only modify the sensitive parameter and others remain the same value.
+When the iteration is stopped, the best-fit coefficient $W_{best}$ will be obtained. By applying $W_{best}$ to Eq.\ref{result}, we can get the regression value of the sensitive parameter. This value will be used in the robot control. It is worth noting that we only modify the sensitive parameter and others remain the same value.
