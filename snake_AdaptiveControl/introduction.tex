@@ -1,7 +1,7 @@
 \section{Introduction}
 % no \IEEEPARstart
-Snake-like robots, with multiple joints and degree of freedom, 
-have strong mobility in complex and unknown terrains\cite{Chirikjian1995The}. 
+Snake-like robots generally consist of rigid links connected by joints which are usually fitted with actuators to control the locomoton to form a serial structure that mimic the skeleton of a real snake. With multiple joints and degree of freedom, 
+snake-like robots have strong mobility in complex and unknown terrains\cite{Chirikjian1995The}. 
 Therefore, they can complete tasks in many occasions, such as disaster 
 rescuing\cite{DogAndSnake}, factory pipe maintenance\cite{ACMTutorial} 
 and scientific exploration\cite{Kuwada2007Snake}. In the past decades, 
@@ -9,12 +9,12 @@ with the advent of orthogonal and universal joint structure\cite{1014757}\cite{D
 snake-like robots acquired the ability of three-dimensional space movement, 
 which strengthens their mobility in varied topography. 
 
-Although the snake-like robots have high mobility in many environments, the control of snake-like robots is complicated. A variety of motions can be constructed to get the same motion effect in the same environment because of the features of snake-like robots like multiple joints and degree of freedom. Moreover, the movements of snake-like robots are difficult to be predefined or inferred in the unknown environment.
+Although the snake-like robots have high mobility in many environments, the control of snake-like robots is complicated. A variety of motions can be constructed to get the same motion effect in the same environment because of the features of snake-like robots like multiple joints and degree of freedom. Moreover, the movements of snake-like robots are difficult to be predicted in the unknown environment.
 
-Nowadays, based on a widely used motion model\cite{HiroseSine} of snake-like robots, we can pre-define the parameters to make robots move correctly in the known environment. However, this method is not feasible for the unknown environment. In unknown environments, tunning parameters artifically is inefficient because tunning the parameters inaccurately will break the motion of snake-like robots and it is difficult to tune the parameter accurately during robots' motion. In addition, controlling the robots is a professional work. Therefore, autonomous mobility of robots is an expectation in robots' motion.
+Nowadays, there are two widely used control method. Firstly, we can pre-define the parameters to make robots move correctly in the known environment based on a widely used motion model\cite{HiroseSine} of snake-like robots. However, this method is not feasible for the unknown environment. Secondly, we can control the robot by tunning parameters artificially. While tunning parameters artifically is inefficient in unknown environments because it is difficult to tune the parameter accurately during robots' motion. In addition, controlling the robots is a professional work and tunning the parameters inaccurately will break the motion of snake-like robots. Therefore, autonomous mobility of robots is an expectation in robots' motion.
 %Although the snake-like robots have high mobility in many environments, the movement of most snake-like robots in unknown environments is directly controlled by human, reducing the efficiency and limiting the implementation of snake-like robots. Therefore, it is an important and challenging task to give them the ability to move in complex environment without real-time human intervention, that is, the autonomous mobility.
 
-Autonomous mobility is an important and challenging task in robots' adaptability to environments. It is quite tough for programmer to take full account of all possible scenarios and have a good understanding of the interaction between the robot and the environment to construct a behavior-based autonomous model for robots, which increases the programmer's programming intensity and makes a weak effect on the movement in the unknown and mutational environment as well as has a weak adaptability to the environment.
+Autonomous mobility is an important and challenging task in robots' controlling.  Autonomous mobility requires high real-time performance to make robots respond to changes in the environment in time. What's more, High efficiency is critical in autonomous mobility. With high real-time performance and high efficiency, robots can make a rapid calculation when a mutation happens in the motion environment .   
 
 In this paper, we propose a novel experience-based control strategy,
 which autonomously determines the optimal control parameters of a snake-like robot in
