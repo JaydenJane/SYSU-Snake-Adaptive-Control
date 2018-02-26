@@ -319,12 +319,20 @@
 \usepackage{fancyhdr}
 \usepackage{fancyhdr}
 \usepackage{amsmath}
+\usepackage{algorithm}    
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 
 \def\RSfigtxt{Fig.\,}%
 \def\RSfigstxt{Figs~}%
 \def\RSFigtxt{Fig.\,}%
 \def\RSFigstxt{Figs~}%
 
+\floatname{algorithm}{Algorithm}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
 
 
 \begin{document}
@@ -336,7 +344,7 @@
 % Linebreaks \\ can be used within to get better formatting as desired.
 % Do not put math or special symbols in the title.
 
-\title{Multi-parameter regression control of snake-like robots by experience-based learning}
+\title{\huge{Multi-parameter regression control of snake-like robots by experience-based learning}}
 
 % author names and affiliations
 % use a multiple column layout for up to three different
@@ -375,16 +383,19 @@
 %
 \author{\IEEEauthorblockN{
 	Zhiyong Jian\IEEEauthorrefmark{1}	
+	Jianping Huang\IEEEauthorrefmark{1}
 	Yuhong Huang\IEEEauthorrefmark{2},
 	Linlin Liu\IEEEauthorrefmark{1},
 	Long Cheng\IEEEauthorrefmark{1} and
 	Kai Huang\IEEEauthorrefmark{1}
 }
-\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Data and Computer Science,Sun yat-sen University, Guangzhou, China, Email: jianzhy5@mail2.sysu.edu.cn}
-\IEEEauthorblockA{\IEEEauthorrefmark{2}College of Computer, National University of Defense Technology, ChangSha, China, Email: huangyuhong17@nudt.edu.cn}
-\IEEEauthorblockA{\IEEEauthorrefmark{1}Email: liull28@mail2.sysu.edu.cn}
-\IEEEauthorblockA{\IEEEauthorrefmark{1}Email: chengl@in.tum.de}
-\IEEEauthorblockA{\IEEEauthorrefmark{1}Email: huangk36@mail.sysu.edu.cn}}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Data and Computer Science,Sun yat-sen University, Guangzhou, China} %Email: jianzhy5@mail2.sysu.edu.cn}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}Email: huangjp25@mail2.sysu.edu.cn}
+\IEEEauthorblockA{\IEEEauthorrefmark{2}College of Computer, National University of Defense Technology, ChangSha, China} %Email: huangyuhong17@nudt.edu.cn}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}Email: liull28@mail2.sysu.edu.cn}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}Email: chengl@in.tum.de}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}Email: huangk36@mail.sysu.edu.cn}
+}
 
 
 
@@ -425,7 +436,9 @@ Snake-like robot; autonomous ability; pipe climbing; multiple regression; machin
 
 \input{introduction}
 \input{relativework}
+\input{Overview}
 \input{mainwork}
+%\input{complexity}
 \input{experiment}
 \input{conclusion}
 

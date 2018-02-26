@@ -1,83 +1,140 @@
-\section{experience-based control strategy}
+%\section{experience-based control strategy}
+\section{off-line work}
 
-The intelligent control strategy proposed in this paper is shown in \figref{fig:stepMap}.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.8\linewidth]{fig/mainwork/stepMap}
-	\caption{The overall experimental flow chart}
-	\figlabel{fig:stepMap}
-\end{figure}
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=.8\linewidth]{fig/mainwork/stepMap}
+%	\caption{The overall experimental flow chart}
+%	\figlabel{fig:stepMap}
+%\end{figure}
 
- In the preprocessing work, we let the robot move in different environments for a large number of times and we collect and store the data listed in the form like \figref{fig:data}.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\linewidth]{fig/mainwork/data}
-	\caption{The structure of the data storage}
-	\figlabel{fig:data}
-\end{figure}
+In the preprocessing work, we let the robot move along 25 cm and 35 cm pipes for a large number of times and we collect and store the data listed in the form like Table \ref{dataTable}.
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=\linewidth]{fig/mainwork/data}
+%	\caption{The structure of the data storage}
+%	\figlabel{fig:data}
+%\end{figure}
+\begin{table}[h]
+    \begin{center}
+        \caption{recorded value during training}
+        \label{dataTable}
+        \begin{tabular}{cl cl} 
+            \toprule
+            \multicolumn{1}{m{3cm}}{\centering Symbol}
+            &\multicolumn{1}{m{5cm}}
+              {\centering Definition}\\
+            \midrule
+			\multirow{2}{*}{$\theta_{m,i}$} & The joint angle of the $i_{th}$ joint which is me-\\ & asured \\
+			\multirow{2}{*}{$M$} & Mean of difference between measured joint \\
+			& angle and desired joint angle\\ \hline
+			\multirow{2}{*}{$A$} & \multirow{2}{*}{The value of amplifier} \\
+			\multirow{2}{*}{$\omega$} & \multirow{2}{*}{The value of angular rate} \\
+			\multirow{2}{*}{$\varepsilon$} & \multirow{2}{*}{The value of phase} \\\\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{table}
 
-In this way, we define "Mean of difference" as $\frac{\sum_{i=1}^{n}(t^{(i)}-ma^{(i)})}{n} $ where n is the number of joints. $T=\begin{bmatrix}
-t^{(1)} & t^{(2)} & \cdots & t^{(n)}
-\end{bmatrix}$ is the desired joint angles and $MA=\begin{bmatrix}
-ma^{(1)} & ma^{(2)} & \cdots & ma^{(n)}
-\end{bmatrix}$ is the measured joint angles. The control vector is shown as
-$V_C=\begin{bmatrix}
-A\\ 
-\omega\\
-\varepsilon
+We define "Mean of difference" as $\frac{\sum_{i=1}^{n}(\theta_{d,i}-\theta_{m,i})}{n} $ where n is the number of joints. $\theta_{d}=\begin{bmatrix}
+\theta_{d,1} & \theta_{d,2} & \cdots & \theta_{d,n}
+\end{bmatrix}$ is joint angles which we can calculate from Eq.\ref{basicRoll} and $\theta_{m}=\begin{bmatrix}
+\theta_{m,1} & \theta_{m,2} & \cdots & \theta_{m,n}
+\end{bmatrix}$ is the joint angles which are measured. The control vector is shown as
+$\begin{bmatrix}
+A& \omega&\varepsilon
 \end{bmatrix}$
-where $A$ is the amplitude， $\omega$ is the phase, and the $\varepsilon$ is the angular rate. All of them come from Eq.\ref{basicRoll}.
+where $A$ is the amplitude, $\omega$ is the angular rate, and the $\varepsilon$ is the phase. All of them are applied in Eq.\ref{basicRoll}.
 
-After collecting movement data of a snake-like robot, we cluster the training data in order to simplify the data processing.
+After collecting movement data of a snake-like robot, we combine the training data obtained in different environment and then cluster the data in order to optimize real-time calculation.
 
-In robot's running time, we get the real-time data periodically and then we do the following steps. Firstly, we categorize the real-time data based on the clustering result in preprocessing. And then we select the most sensitive gait parameter according to the entropy variance. At last, we use the idea of regression to modify the sensitive gait parameter and keep the other gait parameters unchanged.
-
-\subsection{Implementation of Clustering by $Kmeans++$}
-In this research, collected data in preprocessing is a large-scale data set. As $kmeans++$ algorithm has high efficiency and scalability for a large-scale data set, we adopt $kmeans++$ for clustering. We classify training set into $N_{k}$ blocks. The clustering process is divided into the following steps:
-
+%\subsection{Implementation of Clustering by $k-means++$}
+In this research, collected data in preprocessing is a large-scale data set. As $k-means++$ algorithm has high efficiency and scalability for a large-scale data set, we adopt $kmeans++$ for clustering. We classify training set into $N$ clusters. The clustering process is divided into the following steps:
 \begin{itemize}
-	\item Step 1: Randomly select a point in the training set as the first cluster center.
-	\item Step 2: For the $k_{th}$ center, select the point which has the largest  distance to the $(k-1)$ centers in the current training set
+	\item Step 1: Decide the value of $N$ by Eq.\ref{clu_var}.
+	\begin{eqnarray}\label{clu_var}
+		N=arg\min \limits_{N_{k}}{\frac{\sum _{N_{k}}(S_{i}-E)^{2}}{N_{k}}}
+	\end{eqnarray}
+	where $E = \frac{\sum _{N}(S_{i})}{N}$ and $i\in [1,N]$.
+	\item Step 2: perform k-means++ as \textbf{Algorithm \ref{kmeans}} shows.
+%	\item Step 2: Randomly select a point in the training set as the first cluster center.
+%	\item Step 3: For the $k_{th}$ center, select the point which has the largest  distance to the $(k-1)$ centers in the current training set
 	%prework step2
-	\begin{eqnarray}\label{clu_step2}
-	\left\{
-	\begin{array}{lr}
-	F_{c}\left ( P^{\left (  i\right )} \right ) = \sum_{j=1}^{k-1}\left \| X^{\left ( j-1 \right )}-P^{\left (  i\right )} \right \|_{2}\\
-	k = $arg$\max \limits_{i}{(F_{C}(P^{(i)}))}
-	\end{array}
-	\right.
-	\end{eqnarray}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[height=0.5in]{fig/mainwork/data2}
-		\caption{Data vector used in clustering and regression}
-		\figlabel{fig:data2}
-	\end{figure}
-	$P^{(i)}$ is a data(\figref{fig:data2}) in the training set. $X^{(j)}$ is the $j_{th}$ cluster center. $S^{(P)}$ is the  training set. For the initial cluter center $X^{(k)}$, we have $X^{(k)}\in S^{(P)}$ and $X^{(k)}$ is the vector $P^{(i)}$ which corresponds to the result of Eq.\ref{clu_step2}. 
-	\item Step 3: Repeat Step 1 and Step 2 until $N_{k}$ cluster centers have been confirmed.
-	\item Step 4: After confirming $N_{k}$ cluster center, we categorize every vector in training set based on Eq.\ref{clu_step4}.
+%	\begin{eqnarray}\label{clu_step2}
+%	\left\{
+%	\begin{array}{lr}
+%	F_{c}\left ( P^{\left (  i\right )} \right ) = \sum_{j=1}^{k-1}\left \| X^{\left ( j-1 \right )}-P^{\left (  i\right )} \right \|_{2}\\
+%	k = $arg$\max \limits_{i}{(F_{C}(P^{(i)}))}
+%	\end{array}
+%	\right.
+%	\end{eqnarray}
+%	\begin{figure}[H]
+%		\centering
+%		\includegraphics[height=0.5in]{fig/mainwork/data2}
+%		\caption{Data vector used in clustering and regression}
+%		\figlabel{fig:data2}
+%	\end{figure}
+%	$P^{(i)}$ is $\begin{bmatrix}
+%	\theta_{m} & M
+%	\end{bmatrix}$. $X^{(j)}$ is the $j_{th}$ cluster center. $S^{(P)}$ is the  training set. For the initial cluster center $X^{(k)}$, we have $X^{(k)}\in S^{(P)}$ and $X^{(k)}$ is the vector $P^{(i)}$ which corresponds to the result of Eq.\ref{clu_step2}. 
+%	\item Step 4: Repeat Step 1 and Step 2 until $N_{k}$ cluster centers have been confirmed.
+%	\item Step 5: After confirming $N_{k}$ cluster center, we categorize every vector in training set based on Eq.\ref{clu_step4}.
 	%prework step4
-	\begin{eqnarray}\label{clu_step4}
-	C^{(i)} = arg\min \limits_{k}{(||P^{(i)}-X^{(k)}||_{2})}
-	\end{eqnarray}
-	In this equation, $C^{(i)}$ is the flag of category which the vector $P^{(i)}$ belongs to.
-	\item Step 5: Refresh the cluster centers according to clustering result by the Eq.\ref{clu_step5}
+%	\begin{eqnarray}\label{clu_step4}
+%	C^{(i)} = arg\min \limits_{k}{(||P^{(i)}-X^{(k)}||_{2})}
+%	\end{eqnarray}
+%	In this equation, $C^{(i)}$ is the flag of category which the vector $P^{(i)}$ belongs to.
+%	\item Step 6: Refresh the cluster centers according to clustering result by the Eq.\ref{clu_step5}
 	%prework step5
-	\begin{eqnarray}\label{clu_step5}
-	X^{(k)}=\frac{\sum_{i}\{C^{(i)}=k)\}P^{(i)}}{\sum_{i}\{C^{(i)}=k\}}
-	\end{eqnarray}
-	\item Step 6: iterate Step 4 and 5 until the cluster centers change within a predefined tolerance range.
+%	\begin{eqnarray}\label{clu_step5}
+%	X^{(k)}=\frac{\sum_{i}\{C^{(i)}=k)\}P^{(i)}}{\sum_{i}\{C^{(i)}=k\}}
+%	\end{eqnarray}
+%	\item Step 7: iterate Step 4 and 5 until the cluster centers change within a predefined tolerance range.
 \end{itemize}
+
+\begin{algorithm}
+    \caption{k-means++}
+    \label{kmeans}
+    \begin{algorithmic}[1] 
+        \Require Training set $S^{\left(P\right)}$, Blocks number $N_k$
+        \Ensure Initial cluster center $X$
+        \Function {Initialize}{$S^{\left(P\right)}, N_k$}
+            \State $X \gets sample \ a \ point \ uniformly \ at \ random \ from$ \\$ \qquad S^{\left(P\right)}$
+            \While{$\vert X \vert<N_k$}
+                \For{$i = 1 \to \vert S^{\left(P\right)} \vert$}
+                    \State $I \gets \mathop{\arg\max}_{i}\left({\sum_{j=1}^{\vert X \vert} {\Vert X - P^{\left( i \right)} \Vert}^2  }\right)$
+                    \State $X \gets X \cup \left\{ P^{\left( I \right)} \right\}$
+                    \State $S^{\left( P \right)} \gets S^{\left( P \right)} - P^{\left( I \right)}$
+                \EndFor
+            \EndWhile
+            \State \Return{$X$}
+        \EndFunction
+        \State
+        \Function{Update}{$S^{\left(P\right)}, X$}
+            \While{stopping criterion has not been met}
+                \For{$i = 1 \to \vert S^{\left(P\right)} \vert$}
+       \State $C^{\left(i\right)} \gets \mathop{\arg\min}_{k}{\left( {\Vert P^{\left(i\right)} - X^{\left(k\right)}\Vert} ^2\right)}$
+                \EndFor
+                \For{$k = 1 \to \vert X \vert$}
+       \State $X^{\left(k\right)} \gets \frac{\sum_{i}{\left\{C^{\left(i\right)}=k\right\}P^{\left(i\right)}}}{\sum_{i}{\left\{C^{\left(i\right)}=k\right\}}}$
+                \EndFor
+            \EndWhile
+            \State \Return{$X$}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
 
 After finishing the clustering, the result is stored in two parts:
 
 \begin{itemize}
-	\item The corresponding relationship between each vector in training set and the center of the cluster it belongs to.
-	\item The data vectors of each cluster center.
+	\item The value of each cluster center.
+	\item The corresponding relationship between each group of data in training set and each cluster center.
 \end{itemize}
 
-With $Kmeans++$, the collected data can be divided into several clusters.
+With $Kmeans++$, the collected data can be divided into $N_{k}$ clusters.
 
+\section{runtime}
+In robot's running time, we get the real-time data periodically and then we do the following steps. Firstly, we categorize the real-time data based on the clustering result in off-line work. And then we select the most sensitive gait parameter according to the entropy variance. At last, we use the idea of weighted regression to modify the selected gait parameter and keep the other gait parameters unchanged.
 \subsection{Parameter selection by entropy variance}
 
 %classification
@@ -135,24 +192,24 @@ We adopt entropy variance as the reference to select the parameter which should 
 	Var_{i}^{(H)}=\frac{\sum _{N_{i}}(H(S_{ij}^{(P)})-E_{ij}^{(H)})^{2}}{N_{i}}
 	\end{eqnarray}
 	
-	\item Step 3: We normalize the entropy variance (Eq.\ref{normalize}) and randomly select the sensitive gait parameters by roulette method (\figref{fig:Roulette}) to avoid the selection getting stuck in the high probability event.
+	\item Step 3: We normalize the entropy variance (Eq.\ref{normalize}) and randomly select the sensitive gait parameters by Roulette wheel selection algorithm. %(\figref{fig:Roulette}) to avoid the selection getting stuck in the high probability event.
 	%normalize entropy variance
 	\begin{eqnarray}\label{normalize}
 	R_{i}^{(var)}=\frac{Var_{i}^{(H)}}{\sum Var^{(H)}}
 	\end{eqnarray}
 	
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=\linewidth]{fig/mainwork/Roulette}
-		\caption{Sensitive parameter selection by roulette method}
-		\figlabel{fig:Roulette}
-	\end{figure}
+	%\begin{figure}[H]
+	%	\centering
+	%	\includegraphics[width=\linewidth]{fig/mainwork/Roulette}
+	%	\caption{Sensitive parameter selection by roulette method}
+	%	\figlabel{fig:Roulette}
+	%\end{figure}
 \end{itemize}
 
-After the calculation of gait parameters' entropy variance. the sensitive parameter will be found. And then the selected parameter is used in the regression control later.
+After the calculation of gait parameters' entropy variance. the sensitive parameter will be found. And then the selected parameter's value will be modified by regression.
 
 
-\subsection{Assignment of the sensitive parameter by weighted regression}
+\subsection{Assignment to the value of the selected parameter}
 
 In this research, we take weighted regression to get the value of the sensitive gait parameter and use the gradient descent method to solve the weighted least squares problem in fitting regression function.
 
@@ -163,7 +220,7 @@ In this research, we take weighted regression to get the value of the sensitive 
 	F_{w}(P_{t})=W^{T}P_{t}\,,&W=\begin{bmatrix}w_{1}\\ w_{2}\\ \vdots \\ w_{m}\end{bmatrix}
 	\end{eqnarray}
 	
-	In Eq.\ref{fitfunction}, $W$ is the coefficient sequence of the fitting equation and $m$ is the number of coefficients where $P_{t}$ is the collected vector in real-time with the model of  \figref{fig:data2}. Then we can get the error function(Eq.\ref{estimate}) which takes the square of error as the estimation with $n$ being the number of data of $S^{(V)}$ and $Q$ being the vector consisting of the sensitive parameter component of the vector $P^{(i)}( P^{(i)} \in P)$.
+	In Eq.\ref{fitfunction}, $W$ is the coefficient sequence of the fitting equation and $m$ is the number of coefficients where $P_{t}$ is the real-time collected data vector. Then we can get the error function(Eq.\ref{estimate}) which takes the square of error as the estimation with $n$ being the number of data of $S^{(V)}$ and $Q$ being the vector consisting of the sensitive parameter component of the vector $P^{(i)}( P^{(i)} \in P)$.
 	%Square sum as an estimation
 	\begin{eqnarray}\label{estimate}
 		D(W)=\frac{1}{2n}(F_{w}(P)^{T}-Q)^{T}(F_{w}(P)^{T}-Q)
